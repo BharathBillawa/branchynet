@@ -39,8 +39,14 @@ TRAIN_NUM_EPOCHS = 50
 
 # In[6]:
 
-main_loss, main_acc, main_time = utils.train(branchyNet, x_train, y_train, main=True, batchsize=TRAIN_BATCHSIZE,
-                                             num_epoch=TRAIN_NUM_EPOCHS)
+main_loss, main_acc, main_time = utils.train(
+    branchyNet,
+    x_train,
+    y_train,
+    main=True,
+    batchsize=TRAIN_BATCHSIZE,
+    num_epoch=TRAIN_NUM_EPOCHS
+)
 
 
 # Train BranchyNet
@@ -48,8 +54,13 @@ main_loss, main_acc, main_time = utils.train(branchyNet, x_train, y_train, main=
 # In[7]:
 
 TRAIN_NUM_EPOCHS = 100
-branch_loss, branch_acc, branch_time = utils.train(branchyNet, x_train, y_train, batchsize=TRAIN_BATCHSIZE,
-                                             num_epoch=TRAIN_NUM_EPOCHS)
+branch_loss, branch_acc, branch_time = utils.train(
+    branchyNet,
+    x_train,
+    y_train,
+    batchsize=TRAIN_BATCHSIZE,
+    num_epoch=TRAIN_NUM_EPOCHS
+)
 
 #set network to inference mode
 branchyNet.testing()
@@ -97,8 +108,14 @@ thresholds = [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25,
 #GPU
 if cuda.available:
     branchyNet.to_gpu()
-g_ts, g_accs, g_diffs, g_exits = utils.screen_branchy(branchyNet, x_test, y_test, thresholds,
-                                                    batchsize=TEST_BATCHSIZE, verbose=True)
+g_ts, g_accs, g_diffs, g_exits = utils.screen_branchy(
+    branchyNet,
+    x_test,
+    y_test,
+    thresholds,
+    batchsize=TEST_BATCHSIZE,
+    verbose=True
+)
 # g_ts, g_accs, g_diffs, g_exits = utils.screen_leaky(leakyNet, x_test, y_test, thresholds, inc_amt=-0.1,
 #                                                     batchsize=TEST_BATCHSIZE, verbose=True)
 
@@ -109,8 +126,8 @@ g_diffs *= 1000.
 # In[ ]:
 
 visualize.plot_line_tradeoff(g_accs, g_diffs, g_ts, g_exits, g_baseacc, g_basediff, all_samples=False, inc_amt=-0.0001000,
-                             our_label='BranchyLeNet', orig_label='LeNet', xlabel='Runtime (ms)', 
-                             title='LeNet GPU', output_path='_figs/lenet_gpu.pdf')
+                            our_label='BranchyLeNet', orig_label='LeNet', xlabel='Runtime (ms)', 
+                            title='LeNet GPU', output_path='_figs/lenet_gpu.pdf')
 
 
 # In[32]:
@@ -118,7 +135,7 @@ visualize.plot_line_tradeoff(g_accs, g_diffs, g_ts, g_exits, g_baseacc, g_basedi
 #CPU
 branchyNet.to_cpu()
 c_ts, c_accs, c_diffs, c_exits  = utils.screen_branchy(branchyNet, x_test, y_test, thresholds,
-                                                     batchsize=TEST_BATCHSIZE, verbose=True)
+                                                    batchsize=TEST_BATCHSIZE, verbose=True)
 # c_ts, c_accs, c_diffs, c_exits  = utils.screen_branchy(branchyNet, x_test, y_test, g_ts, inc_amt=0.01,
 #                                                      batchsize=TEST_BATCHSIZE, prescreen=False, verbose=True)
 #convert to ms
@@ -128,15 +145,15 @@ c_diffs *= 1000.
 # In[22]:
 
 visualize.plot_line_tradeoff(c_accs, c_diffs, c_ts, c_exits, c_baseacc, c_basediff, all_samples=False, inc_amt=-0.0001000,
-                             our_label='BranchyLeNet', orig_label='LeNet', xlabel='Runtime (ms)',
-                             title='LeNet CPU', output_path='_figs/lenet_cpu.pdf')
+                            our_label='BranchyLeNet', orig_label='LeNet', xlabel='Runtime (ms)',
+                            title='LeNet CPU', output_path='_figs/lenet_cpu.pdf')
 
 
 # In[ ]:
 
 #Compute table results
 utils.branchy_table_results(c_baseacc, c_basediff, g_basediff, c_accs, c_diffs, g_accs, g_diffs, inc_amt=0.000, 
-                          network='LeNet')
+                        network='LeNet')
 
 
 # Save model/data

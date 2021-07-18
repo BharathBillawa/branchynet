@@ -5,7 +5,7 @@ def entropy_gpu(x):
         'T x',
         'T y',
         '''
-           y = (x == 0) ? 0 : -x*log(x);
+            y = (x == 0) ? 0 : -x*log(x);
         ''',
         'entropy')(x.data)
     return cuda.cupy.sum(vec,1)

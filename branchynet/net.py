@@ -226,9 +226,9 @@ class BranchyNet:
         overall /= np.sum(numexits)
         
         if self.verbose:
-            print "numexits", numexits
-            print "accuracies", accuracies
-            print "overall accuracy", overall
+            print("numexits", numexits)
+            print("accuracies", accuracies)
+            print("overall accuracy", overall)
         
         return overall, accuracies, numexits, totaltime
     
@@ -347,7 +347,7 @@ class BranchyNet:
             accuracydata = accuracy.data
         
         if self.verbose:
-            print "accuracies", accuracydata
+            print("accuracies", accuracydata)
             
         return accuracydata, totaltime
     
@@ -365,8 +365,8 @@ class BranchyNet:
             accuraciesdata = accuracy.data            
 
         if self.verbose:        
-            print "losses",lossesdata
-            print "accuracies",accuraciesdata
+            print("losses",lossesdata)
+            print("accuracies",accuraciesdata)
         
         return lossesdata,accuraciesdata
         
@@ -389,7 +389,7 @@ class BranchyNet:
         numexits = []
         accuracies = []
         
-          
+        
         nummodels = len(self.models)
         numsamples = x.data.shape[0]
         exitHs = []
@@ -400,7 +400,7 @@ class BranchyNet:
             softmax = F.softmax(smh)
             exitHs.append(softmax.data)
             
-                      
+                
         return exitHs
     
     
@@ -450,7 +450,7 @@ class BranchyNet:
             numexit = int(total - numkeep)
             esorted = entropy_value.argsort()
             thresholds[i] = entropy_value[esorted[numexit]]
-               
+        (
         return thresholds.tolist(),entropy_values
             
     def find_thresholds(self, x_train, y_train, percentTrainKeeps=0.5, batchsize=1024):  
@@ -605,19 +605,19 @@ class BranchyNet:
             accuraciesdata = [accuracy.data for accuracy in accuracies]
         
         if self.verbose:
-            print "numexits",numexits
-            print "losses",lossesdata
-            print "accuracies",accuraciesdata
+            print("numexits",numexits)
+            print("losses",lossesdata)
+            print("accuracies",accuraciesdata)
             
         return lossesdata,accuraciesdata
     
     def print_models(self):
         for model in self.models:
-            print "----", model.starti, model.endi
+            print("----", model.starti, model.endi)
             for link in model:
-                print link
-        print "----", self.main.starti, model.endi
+                print(link)
+        print("----", self.main.starti, model.endi)
         for link in self.main:
-            print link
-        print "----"
+            print(link)
+        print("----")
         

@@ -91,8 +91,8 @@ def plot_roc(ps,accs,diffs,baseacc,basediff):
 
 
 def plot_line_tradeoff(accs, diffs, ps, exits, baseacc, basediff, orig_label='Baseline', title=None, our_label='Our Method',
-                       xlabel='Runtime (s)', ylabel='Classification Accuracy', all_samples=False, knee_idx=None,
-                       xlim=None, ylim=None, inc_amt=-0.0005, output_path=None):
+                        xlabel='Runtime (s)', ylabel='Classification Accuracy', all_samples=False, knee_idx=None,
+                        xlim=None, ylim=None, inc_amt=-0.0005, output_path=None):
     matplotlib.rcParams.update({'axes.labelsize': 10,
     'text.fontsize': 18,
     'legend.fontsize': 15,
@@ -118,16 +118,16 @@ def plot_line_tradeoff(accs, diffs, ps, exits, baseacc, basediff, orig_label='Ba
         plt.ylim(ylim)
     if knee_idx:
         plt.plot(inc_rts[0], np.array(inc_accs[0])*100., 
-                 '-o', color='#5163d3', ms=6, linewidth=4, label=our_label)
+                '-o', color='#5163d3', ms=6, linewidth=4, label=our_label)
         plt.plot(inc_rts, np.array(inc_accs)*100., 
-                 '-', color='#5163d3', ms=6, linewidth=4)
+                '-', color='#5163d3', ms=6, linewidth=4)
         plt.plot(np.delete(inc_rts, knee_idx), np.delete(np.array(inc_accs)*100., knee_idx), 
-                 'o', color='#5163d3', ms=6)
+                'o', color='#5163d3', ms=6)
         plt.plot(inc_rts[knee_idx], np.array(inc_accs)[knee_idx]*100., '*', color='#50d350', ms=16, label=our_label + ' knee')
-   
+    
     else:
         plt.plot(inc_rts, np.array(inc_accs)*100., 
-                 '-o', color='#5163d3', ms=6, linewidth=4,label=our_label)
+                '-o', color='#5163d3', ms=6, linewidth=4,label=our_label)
     
     plt.plot(basediff, baseacc*100., 'D', color='#d3515a', ms=8, label=orig_label)
 
